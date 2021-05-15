@@ -19,9 +19,9 @@ class Test extends TestCase
     public function TestUnit(): void
     {
         // Session::start();
-        $url = "";
-        $_POST['username']="";
-        $_POST['password']="";
+        $url = "http:// ... login.php";
+        $_POST['username']=" USERNAME ";
+        $_POST['password']=" PASSWORD ";
         $response = array(
             'username' => urlencode($_POST['username']),
             'password' => urlencode($_POST['password'])
