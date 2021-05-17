@@ -23,11 +23,11 @@ class Test extends TestCase
 
     function httpPost()
     {
-        $URL = "http://192.168.43.151/shopping/login/login.php";
+        $URL = "www.example.com";
 
         $sendData = array(
-            'username' => "mehdimatinfar3",
-            'password' => "123456789m",
+            'username' => "USERNAME",
+            'password' => "PASSWORD",
 
         );
 
