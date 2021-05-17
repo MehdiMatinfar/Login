@@ -1,6 +1,5 @@
 <?php
 
-
 use PHPUnit\Framework\TestCase;
 
 class Test extends TestCase
@@ -18,30 +17,39 @@ class Test extends TestCase
      */
     public function TestUnit(): void
     {
-        // Session::start();
-        $url = "http:// ... login.php";
-        $_POST['username']=" USERNAME ";
-        $_POST['password']=" PASSWORD ";
-        $response = array(
-            'username' => urlencode($_POST['username']),
-            'password' => urlencode($_POST['password'])
+        $this->httpPost();
+    }
+
+
+    function httpPost()
+    {
+        $URL = "http://192.168.43.151/shopping/login/login.php";
+
+        $sendData = array(
+            'username' => "mehdimatinfar3",
+            'password' => "123456789m",
 
         );
-        foreach ($response as $key => $value) {
-            $fields_string .= $key . '=' . $value . '&';
-        }
-        rtrim($fields_string, '&');
-        $ch = curl_init();
+
+        $Curl = curl_init($URL);
+        curl_setopt($Curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($Curl, CURLOPT_POST, true);
+        curl_setopt($Curl, CURLOPT_POSTFIELDS, $sendData);
+        curl_setopt($Curl, CURLOPT_COOKIEJAR, 'cookie.txt');
+        curl_setopt($Curl, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($Curl);
+         curl_close($Curl);
+          $Info = curl_getinfo($Curl, CURLINFO_HTTP_CODE);
 
 
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_POST, count($response));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-        $result = curl_exec($ch);
-        $this->assertEquals(200, curl_getinfo($ch));
-        curl_close($ch);
+             self::assertEquals(200, $Info);
 
-      //  $this->assertEquals('login', $response->original->name());
+                 self::assertEmpty($Info,"Not Empty");
+
+
+
+
     }
 
 }
